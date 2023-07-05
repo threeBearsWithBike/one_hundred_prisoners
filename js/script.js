@@ -61,6 +61,11 @@ function openBox(box,prisoner) {
         gameOver();
     }
     renderStatistics();
+    if (modeGame.checked) {
+        let currentBox = arrBoxesOpen.length == 0 ? room.querySelector(`[data-number-box = "${currentPrisoner}"]`) :
+        room.querySelector(`[data-number-box = "${arrBoxesOpen[arrBoxesOpen.length-1]}"]`);
+        setTimeout(() => openBox(currentBox,currentPrisoner),50);
+    }
 }
 
 function nextPrisoner() {
@@ -87,6 +92,7 @@ function gameOver() {
 
 const room = document.querySelector('.room');
 const counts = document.querySelectorAll('.statistics__count');
+const modeGame = document.querySelector('#mode-game');
 let arrNumbersPrisoners = getFirstSetup(); //Распределение номеров по коробкам
 let arrPrisoners = getFirstSetup(); //Очередь заключенных
 const arrBoxesOpen = []; //Массив открытых коробок
@@ -129,3 +135,11 @@ document.querySelector('.statistics__global')
     localStorage.clear();
     renderStaticsGlobal();
 })
+
+modeGame.addEventListener('input', () => {
+    if (modeGame.checked) {
+        let currentBox = arrBoxesOpen.length == 0 ? room.querySelector(`[data-number-box = "${currentPrisoner}"]`) :
+        room.querySelector(`[data-number-box = "${arrBoxesOpen[arrBoxesOpen.length-1]}"]`);
+        openBox(currentBox,currentPrisoner);
+    }
+});
