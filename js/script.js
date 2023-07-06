@@ -64,7 +64,7 @@ function openBox(box,prisoner) {
     if (modeGame.checked) {
         let currentBox = arrBoxesOpen.length == 0 ? room.querySelector(`[data-number-box = "${currentPrisoner}"]`) :
         room.querySelector(`[data-number-box = "${arrBoxesOpen[arrBoxesOpen.length-1]}"]`);
-        setTimeout(() => openBox(currentBox,currentPrisoner),50);
+        setTimeout(() => openBox(currentBox,currentPrisoner), 0);
     }
 }
 
@@ -143,3 +143,22 @@ modeGame.addEventListener('input', () => {
         openBox(currentBox,currentPrisoner);
     }
 });
+
+document.querySelector('.menu-colors')
+.addEventListener('click', (event) => {
+    if (event.target.classList.contains('menu-colors__item_red')) {
+        document.documentElement.style.setProperty('--color-primary', '#FFE4E1');
+        document.documentElement.style.setProperty('--color-room', '#FFF0F5');
+        document.documentElement.style.setProperty('--color-box', '#bc8f8f');
+
+    } else if (event.target.classList.contains('menu-colors__item_yellow')) {
+        document.documentElement.style.setProperty('--color-primary', '#f6f374');
+        document.documentElement.style.setProperty('--color-room', '#f9f8c8');
+        document.documentElement.style.setProperty('--color-box', '#efef1f');
+
+    } else {
+        document.documentElement.style.setProperty('--color-primary', '#5de46a');
+        document.documentElement.style.setProperty('--color-room', '#aaf2b1');
+        document.documentElement.style.setProperty('--color-box', '#1eca2e');
+    }
+})
