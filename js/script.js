@@ -90,6 +90,12 @@ function gameOver() {
     renderStatistics();
 }
 
+function setNewStyle(val,val1,val2) {
+    document.documentElement.style.setProperty('--color-primary', val);
+    document.documentElement.style.setProperty('--color-room', val1);
+    document.documentElement.style.setProperty('--color-box', val2);
+}
+
 const room = document.querySelector('.room');
 const counts = document.querySelectorAll('.statistics__count');
 const modeGame = document.querySelector('#mode-game');
@@ -147,18 +153,10 @@ modeGame.addEventListener('input', () => {
 document.querySelector('.menu-colors')
 .addEventListener('click', (event) => {
     if (event.target.classList.contains('menu-colors__item_red')) {
-        document.documentElement.style.setProperty('--color-primary', '#FFE4E1');
-        document.documentElement.style.setProperty('--color-room', '#FFF0F5');
-        document.documentElement.style.setProperty('--color-box', '#bc8f8f');
-
+        setNewStyle('#FFE4E1','#FFF0F5','#bc8f8f');
     } else if (event.target.classList.contains('menu-colors__item_yellow')) {
-        document.documentElement.style.setProperty('--color-primary', '#f6f374');
-        document.documentElement.style.setProperty('--color-room', '#f9f8c8');
-        document.documentElement.style.setProperty('--color-box', '#efef1f');
-
+        setNewStyle('#f6f374','#f9f8c8','#efef1f');
     } else {
-        document.documentElement.style.setProperty('--color-primary', '#5de46a');
-        document.documentElement.style.setProperty('--color-room', '#aaf2b1');
-        document.documentElement.style.setProperty('--color-box', '#1eca2e');
+        setNewStyle('#5de46a','#aaf2b1','#1eca2e');
     }
 })
