@@ -61,6 +61,11 @@ function openBox(box,prisoner) {
         gameOver();
     }
     renderStatistics();
+    if (modeGame.checked) {
+        let currentBox = arrBoxesOpen.length == 0 ? room.querySelector(`[data-number-box = "${currentPrisoner}"]`) :
+        room.querySelector(`[data-number-box = "${arrBoxesOpen[arrBoxesOpen.length-1]}"]`);
+        setTimeout(() => openBox(currentBox,currentPrisoner), 0);
+    }
 }
 
 function nextPrisoner() {
@@ -85,8 +90,15 @@ function gameOver() {
     renderStatistics();
 }
 
+function setNewStyle(val,val1,val2) {
+    document.documentElement.style.setProperty('--color-primary', val);
+    document.documentElement.style.setProperty('--color-room', val1);
+    document.documentElement.style.setProperty('--color-box', val2);
+}
+
 const room = document.querySelector('.room');
 const counts = document.querySelectorAll('.statistics__count');
+const modeGame = document.querySelector('#mode-game');
 let arrNumbersPrisoners = getFirstSetup(); //Распределение номеров по коробкам
 let arrPrisoners = getFirstSetup(); //Очередь заключенных
 const arrBoxesOpen = []; //Массив открытых коробок
@@ -128,4 +140,23 @@ document.querySelector('.statistics__global')
 .addEventListener('click', () => {
     localStorage.clear();
     renderStaticsGlobal();
+})
+
+modeGame.addEventListener('input', () => {
+    if (modeGame.checked) {
+        let currentBox = arrBoxesOpen.length == 0 ? room.querySelector(`[data-number-box = "${currentPrisoner}"]`) :
+        room.querySelector(`[data-number-box = "${arrBoxesOpen[arrBoxesOpen.length-1]}"]`);
+        openBox(currentBox,currentPrisoner);
+    }
+});
+
+document.querySelector('.menu-colors')
+.addEventListener('click', (event) => {
+    if (event.target.classList.contains('menu-colors__item_red')) {
+        setNewStyle('#FFE4E1','#FFF0F5','#bc8f8f');
+    } else if (event.target.classList.contains('menu-colors__item_yellow')) {
+        setNewStyle('#f6f374','#f9f8c8','#efef1f');
+    } else {
+        setNewStyle('#5de46a','#aaf2b1','#1eca2e');
+    }
 })
